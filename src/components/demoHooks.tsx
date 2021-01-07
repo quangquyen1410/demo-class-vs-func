@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Button from './Button';
-
+import { useSelector, useDispatch } from "react-redux";
 let isRun = false;
 const DemoHooks = () => {
     if (!isRun) {
         console.log('Constructor cach 1 - cách cùi bắp nhất');
         isRun = true;
     }
-    const [counter, setCounter] = useState(0);
+    const counter = useSelector(state => state.counter);
+    console.log("🚀 ~ file: demoHooks.tsx ~ line 11 ~ DemoHooks ~ counter", counter)
+    // const [counter, setCounter] = useState(0);
     const [visibles, setVisibles] = useState(true);
     const [user, setUser] = useState({
         firstName: 'Nguyen Quang',
         lastName: 'Quyen'
     })
-
+    const dispatch = useDispatch();
     useEffect(() => {
         console.log('Tương đương với DidMount và DidUpdate - Chạy sau khi render và sau khi state thay đổi')
     })
@@ -41,8 +43,11 @@ const DemoHooks = () => {
         console.log('useMemo trống <=> Constuctor vì nó không thay đổi deps');
     }, [])
     // Cách khai báo hàm thông thường, sẽ render lại khi component re-render: 
-    const handleCounter = () => {
-        setCounter((prevCounter) => prevCounter + 1)
+    const handleIncrement = () => {
+        dispatch({ type: "INCREMENT" });
+    }
+    const handleDecrement = () => {
+        dispatch({ type: "DECREMENT" });
     }
     // Cache hàm khi xử lý nghiệp vụ lớn, sẽ re-render khi state thay đổi
 
@@ -53,7 +58,8 @@ const DemoHooks = () => {
     return (
         <div>
             <h1>Demo Hooks</h1>
-            <button onClick={handleCounter}>Tăng</button>
+            <button onClick={handleIncrement}>Tăng</button>
+            <button onClick={handleDecrement}>Giảm</button>
             <h2> Counter : {counter}</h2>
             <button onClick={handleButton}>Ẩn hiện button demo</button>
             <br />

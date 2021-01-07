@@ -28,7 +28,6 @@ class DemoComponent extends Component<any, State> {
 
     componentDidUpdate() {
         console.log('DidUpdate - Chạy sau khi có state thay đổi');
-
     }
 
     UNSAFE_componentWillUnmount() {

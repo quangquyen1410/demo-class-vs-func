@@ -27,7 +27,7 @@ const DemoRedux = () => {
 
     const dispatch = useDispatch();
     const addU = () => {
-        user.id = Math.floor(Math.random() * 10000) + 1;
+        user.id = Math.floor(Math.random() * 1000000) + 1;
         dispatch(addNewUser(user));
         setUser(initialFormState)
     }
